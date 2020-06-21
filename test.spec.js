@@ -17,4 +17,8 @@ describe('Screeps Test Server', () => {
   it.todo(`should produce no console output with 'silent' option`);
 
   it.todo(`should forward output to console with 'silent: false'`);
+
+  it.todo(`should load server mods requested in options`);
+
+  it.todo(`should load bot scripts requested in options`);
 });
