@@ -27,6 +27,9 @@
   "scripts": {
     "test": "jest --runInBand"
   },
+  "peerDependencies": {
+    "screeps": "4.x"
+  },
   "dependencies": {
     "@brisberg/common": "github:brisberg/common#no-storage-restart"
   },
@@ -34,8 +37,5 @@
     "del": "^5.1.0",
     "jest": "^26.0.1",
     "screeps": "^4.1.6"
-  },
-  "peerDependencies": {
-    "screeps": "4.x"
   }
 }
