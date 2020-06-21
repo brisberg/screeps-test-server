@@ -28,11 +28,14 @@
     "test": "jest --runInBand"
   },
   "dependencies": {
-    "@brisberg/common": "github:brisberg/common#no-storage-restart",
-    "screeps": "^4.1.6"
+    "@brisberg/common": "github:brisberg/common#no-storage-restart"
   },
   "devDependencies": {
     "del": "^5.1.0",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "screeps": "^4.1.6"
+  },
+  "peerDependencies": {
+    "screeps": "4.x"
   }
 }
