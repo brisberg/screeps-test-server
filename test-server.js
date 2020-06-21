@@ -4,7 +4,7 @@ const cp = require('child_process');
 const common = require('brisberg/common');
 
 // Arbitrary port number. Must match port hardcoded in .screepsrc
-process.env.STORAGE_PORT = '24837';
+process.env.STORAGE_PORT = 24837;
 // process.env.STORAGE_HOST = 'localhost';
 
 /**
@@ -17,9 +17,6 @@ class ScreepsTestServer {
   constructor(opts = {}) {
     this._connected = false;
     this._serverProcess = undefined;
-    this._db = undefined;
-    this._env = undefined;
-    this._pubsub = undefined;
 
     // Options
     this.silent = opts.silent || true;
@@ -30,15 +27,15 @@ class ScreepsTestServer {
   }
 
   get db() {
-    return this._db;
+    return common.storage.db;
   }
 
   get env() {
-    return this._env;
+    return common.storage.env;
   }
 
   get pubsub() {
-    return this._pubsub;
+    return common.storage.pubsub;
   }
 
   get connected() {
@@ -78,8 +75,6 @@ class ScreepsTestServer {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     await common.storage._connect();
     // await common.storage.resetAllData();
-    const {db, env, pubsub} = common.storage;
-    [this._db, this._env, this._pubsub] = [db, env, pubsub];
     this._connected = true;
   }
 
@@ -95,9 +90,6 @@ class ScreepsTestServer {
     // common.storage._connected = false;
     this._serverProcess = undefined;
     this._connected = false;
-    this._db = undefined;
-    this._env = undefined;
-    this._pubsub = undefined;
 
     // Wait for process to die
     return new Promise((resolve) => setTimeout(resolve, 50));

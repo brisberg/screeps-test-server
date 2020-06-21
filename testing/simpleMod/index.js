@@ -1,7 +1,7 @@
 /**
  * Simple Screeps Server Mod
  *
- * Publishes over pubsub when server starts.
+ * Echos a message over pubsub.
  */
 module.exports = (config) => {
   // Engine (main) patch
@@ -10,7 +10,9 @@ module.exports = (config) => {
       if (processType === 'main') {
         const {pubsub} = config.common.storage;
 
-        pubsub.publish('simplemod:init', 'foobar');
+        pubsub.subscribe('simplemod:in', (message) => {
+          pubsub.publish('simplemod:out', message + '_out');
+        });
       }
     });
   }
