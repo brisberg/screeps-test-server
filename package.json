@@ -6,6 +6,9 @@
   "repository": "https://github.com/brisberg/screeps-test-server.git",
   "author": "brisberg <brandon.risberg@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "files": [
     "assets/**",
     "index.js"
@@ -13,5 +16,8 @@
   "dependencies": {
     "brisberg/common": "github:brisberg/common#no-storage-restart",
     "screeps": "^4.1.6"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
   }
 }

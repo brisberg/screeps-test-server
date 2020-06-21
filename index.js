@@ -35,12 +35,15 @@ function forkServerProcess() {
  * Returns the server process, database, and environment handles.
  */
 module.exports.launchTestServer = async () => {
-  const ASSETS_PATH = path.join(process.cwd(), 'testEnv', 'data');
+  const ASSETS_PATH = path.join(process.cwd(), 'assets');
   const TEST_ENV_PATH = path.join(process.cwd(), 'testEnv');
-  fs.copyFileSync(
-      path.join(ASSETS_PATH, 'orig_db.json'),
-      path.join(TEST_ENV_PATH, 'db.json'),
-  );
+  const SERVER_FILES = ['.screepsrc', 'db.json', 'mods.json'];
+  SERVER_FILES.forEach((fileName) => {
+    fs.copyFileSync(
+        path.join(ASSETS_PATH, fileName),
+        path.join(TEST_ENV_PATH, fileName),
+    );
+  });
   serverProcess = forkServerProcess();
   // Wait for storage to initialize
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -54,10 +57,12 @@ module.exports.launchTestServer = async () => {
 /**
  * Tear down and cleanup the screeps process.
  */
-module.exports.killTestServer = () => {
+module.exports.killTestServer = async () => {
   if (serverProcess) {
     serverProcess.kill();
     // common.storage._connected = false;
     serverProcess = undefined;
+    // Wait for process to die
+    await new Promise((resolve) => setTimeout(resolve, 10));
   }
 };
