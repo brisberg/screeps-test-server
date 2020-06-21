@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
-const common = require('brisberg/common');
+const common = require('@brisberg/common');
 
 // Arbitrary port number. Must match port hardcoded in .screepsrc
 process.env.STORAGE_PORT = 24837;

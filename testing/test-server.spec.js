@@ -20,11 +20,16 @@ describe('Screeps Test Server', () => {
 
     await server.stop();
 
-    const spy = jest.spyOn(console, 'error').mockImplementation();
-    // Queries after server shutdown will error
-    db['rooms'].find();
-    expect(console.error).toHaveBeenCalled();
-    spy.mockRestore();
+    // Queries after server shutdown will swallow errors, expect timeout
+    const query = db['rooms'].find().timeout(100);
+    expect(query).rejects.toMatch('Timed out after 100 ms');
+
+    // TODO: Figure out a better way to catch and detect connection errors
+    // const spy = jest.spyOn(console, 'error').mockImplementation();
+    // // Queries after server shutdown will error
+    // const query = db['rooms'].find().timeout(100);
+    // expect(console.error).toHaveBeenCalled();
+    // spy.mockRestore();
   });
 
   describe(`'serverDir' server option`, () => {
