@@ -16,7 +16,7 @@ describe('Screeps Test Server', () => {
     const {db, env, pubsub} = server;
 
     // Queries against live servers succeed
-    expect(await env.get(env.keys.GAMETIME)).toEqual(2);
+    expect(await env.get(env.keys.GAMETIME)).toBeGreaterThan(0);
 
     await server.stop();
 
