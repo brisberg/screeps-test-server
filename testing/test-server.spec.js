@@ -1,14 +1,14 @@
 const del = require('del');
 const fs = require('fs');
 const path = require('path');
-const ScreepsTestServer = require('./test-server');
+const ScreepsTestServer = require('../test-server');
 
 describe('Screeps Test Server', () => {
   let server;
 
   afterEach(async () => {
     await server.stop();
-  })
+  });
 
   it('should launch a test server', async () => {
     server = new ScreepsTestServer();
@@ -54,20 +54,16 @@ describe('Screeps Test Server', () => {
     });
   });
 
-  it.todo(`should load server mods requested in options`);
-
-  it.todo(`should load bot scripts requested in options`);
-
   describe.skip(`'silent' server option`, () => {
     let spy;
 
     beforeEach(() => {
       spy = jest.spyOn(process.stdout, 'write');
-    })
+    });
 
     afterEach(() => {
       spy.mockRestore();
-    })
+    });
 
     it(`should produce no console output with 'silent': true`, async () => {
       server = new ScreepsTestServer({silent: true});
@@ -84,5 +80,9 @@ describe('Screeps Test Server', () => {
 
       expect(process.stdout.write).toHaveBeenCalled();
     });
+  });
+
+  describe(`'steamApiKey' server option`, () => {
+    it.todo('should pass provided SteamApiKey to the backend');
   });
 });
