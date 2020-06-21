@@ -55,12 +55,7 @@ class ScreepsTestServer {
     // Copy server files into test environment
     const ASSETS_PATH = path.join(__dirname, 'assets');
     const TEST_ENV_PATH = path.join(process.cwd(), this.envDir);
-    const SERVER_FILES = [
-      '.screepsrc',
-      'db.json',
-      'mods.json',
-      'steam_appid.txt',
-    ];
+    const SERVER_FILES = ['.screepsrc', 'db.json', 'steam_appid.txt'];
     fs.mkdirSync(TEST_ENV_PATH, {recursive: true});
     SERVER_FILES.forEach((fileName) => {
       fs.copyFileSync(
@@ -68,6 +63,10 @@ class ScreepsTestServer {
           path.join(TEST_ENV_PATH, fileName),
       );
     });
+    // Write out mods.json file
+    const modsData = {mods: this.mods, bots: this.bots};
+    const modsJson = JSON.stringify(modsData, undefined, 2);
+    fs.writeFileSync(path.join(TEST_ENV_PATH, 'mods.json'), modsJson);
 
     // Launch Server
     this._serverProcess = forkServerProcess(

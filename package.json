@@ -7,7 +7,7 @@
   "author": "brisberg <brandon.risberg@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "files": [
     "assets/**",
