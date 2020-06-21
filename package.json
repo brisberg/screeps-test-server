@@ -1,6 +1,6 @@
 {
   "name": "@brisberg/screeps-test-server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Screeps Private Server in a custom test environment. Suitable for unit/integration testing Screeps Server Mod configurations and user scripts.",
   "main": "index.js",
   "keywords": [
