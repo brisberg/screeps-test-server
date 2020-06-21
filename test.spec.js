@@ -1,13 +1,21 @@
-const {launchTestServer, killTestServer} = require('.');
+const ScreepsTestServer = require('./test-server');
 
 describe('Screeps Test Server', () => {
+  let server;
+
+  afterEach(async () => {
+    await server.stop();
+  })
+
   it('should launch a test server in the test environment', async () => {
-    const {db, env, pubsub} = await launchTestServer();
+    server = new ScreepsTestServer({serverDir: 'testEnv'});
+    await server.start();
+    const {db, env, pubsub} = server;
 
     // Queries against live servers succeed
     expect(await env.get(env.keys.GAMETIME)).toEqual(2);
 
-    await killTestServer();
+    await server.stop();
 
     // Queries against closed connections will never complete, expect a timeout
     const query = db['rooms'].find().timeout(300);

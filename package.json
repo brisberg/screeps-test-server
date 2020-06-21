@@ -11,7 +11,8 @@
   },
   "files": [
     "assets/**",
-    "index.js"
+    "index.js",
+    "test-server.js"
   ],
   "dependencies": {
     "brisberg/common": "github:brisberg/common#no-storage-restart",
