@@ -1,3 +1,3 @@
-const {ScreepsTestServer} = require('./test-server');
+const ScreepsTestServer = require('./test-server');
 
 module.exports = {ScreepsTestServer};
