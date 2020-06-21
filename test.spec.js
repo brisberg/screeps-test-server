@@ -1,3 +1,6 @@
+const del = require('del');
+const fs = require('fs');
+const path = require('path');
 const ScreepsTestServer = require('./test-server');
 
 describe('Screeps Test Server', () => {
@@ -7,8 +10,8 @@ describe('Screeps Test Server', () => {
     await server.stop();
   })
 
-  it('should launch a test server in the test environment', async () => {
-    server = new ScreepsTestServer({serverDir: 'testEnv'});
+  it('should launch a test server', async () => {
+    server = new ScreepsTestServer();
     await server.start();
     const {db, env, pubsub} = server;
 
@@ -17,16 +20,69 @@ describe('Screeps Test Server', () => {
 
     await server.stop();
 
-    // Queries against closed connections will never complete, expect a timeout
-    const query = db['rooms'].find().timeout(300);
-    return expect(query).rejects.toEqual(new Error('Timed out after 300 ms'));
+    const spy = jest.spyOn(console, 'error').mockImplementation();
+    // Queries after server shutdown will error
+    db['rooms'].find();
+    expect(console.error).toHaveBeenCalled();
+    spy.mockRestore();
   });
 
-  it.todo(`should produce no console output with 'silent' option`);
+  describe(`'serverDir' server option`, () => {
+    it('should initialize the default environment path', async () => {
+      server = new ScreepsTestServer();
+      await server.start();
 
-  it.todo(`should forward output to console with 'silent: false'`);
+      const envPath = path.join(process.cwd(), 'server');
+      expect(fs.existsSync(path.join(envPath, '.screepsrc'))).toBeTruthy();
+      expect(fs.existsSync(path.join(envPath, 'db.json'))).toBeTruthy();
+      expect(fs.existsSync(path.join(envPath, 'mods.json'))).toBeTruthy();
+      expect(fs.existsSync(path.join(envPath, 'steam_appid.txt'))).toBeTruthy();
+    });
+
+    it('should initialize the given server environment path', async () => {
+      server = new ScreepsTestServer({serverDir: 'testEnv'});
+      await server.start();
+
+      const envPath = path.join(process.cwd(), 'testEnv');
+      expect(fs.existsSync(path.join(envPath, '.screepsrc'))).toBeTruthy();
+      expect(fs.existsSync(path.join(envPath, 'db.json'))).toBeTruthy();
+      expect(fs.existsSync(path.join(envPath, 'mods.json'))).toBeTruthy();
+      expect(fs.existsSync(path.join(envPath, 'steam_appid.txt'))).toBeTruthy();
+
+      // Cleanup
+      await del(envPath);
+    });
+  });
 
   it.todo(`should load server mods requested in options`);
 
   it.todo(`should load bot scripts requested in options`);
+
+  describe.skip(`'silent' server option`, () => {
+    let spy;
+
+    beforeEach(() => {
+      spy = jest.spyOn(process.stdout, 'write');
+    })
+
+    afterEach(() => {
+      spy.mockRestore();
+    })
+
+    it(`should produce no console output with 'silent': true`, async () => {
+      server = new ScreepsTestServer({silent: true});
+
+      await server.start();
+
+      expect(process.stdout.write).not.toHaveBeenCalled();
+    });
+
+    it(`should forward output to console with 'silent: false'`, async () => {
+      server = new ScreepsTestServer({silent: false});
+
+      await server.start();
+
+      expect(process.stdout.write).toHaveBeenCalled();
+    });
+  });
 });
