@@ -2,6 +2,7 @@ import cp from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const common = require('@brisberg/common');
 
 // Arbitrary port number. Must match port hardcoded in .screepsrc
@@ -40,14 +41,17 @@ export default class ScreepsTestServer {
     this.bots = opts.bots || [];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get db(): any {
     return common.storage.db;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get env(): any {
     return common.storage.env;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get pubsub(): any {
     return common.storage.pubsub;
   }
@@ -95,7 +99,7 @@ export default class ScreepsTestServer {
   /**
    * Tear down and cleanup the screeps process.
    */
-  async stop() {
+  async stop(): Promise<void> {
     if (!this.connected || !this.serverProcess) {
       return;
     }
@@ -107,8 +111,8 @@ export default class ScreepsTestServer {
 
     // Wait for process to die
     return new Promise((resolve) => setTimeout(resolve, 50));
-  };
-};
+  }
+}
 
 // Forks a full Screeps Server process and returns the handle
 function forkServerProcess(
@@ -126,4 +130,4 @@ function forkServerProcess(
         stdio: silent ? 'ignore' : 'inherit',
       },
   );
-};
+}

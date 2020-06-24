@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import ScreepsTestServer from './test-server';
 
-describe.skip('Screeps Test Server', () => {
+describe('Screeps Test Server', () => {
   let server: ScreepsTestServer;
 
   afterEach(async () => {
@@ -13,7 +13,7 @@ describe.skip('Screeps Test Server', () => {
   it('should launch a test server', async () => {
     server = new ScreepsTestServer();
     await server.start();
-    const {db, env, pubsub} = server;
+    const {db, env} = server;
 
     // Queries against live servers succeed
     expect(await env.get(env.keys.GAMETIME)).toBeGreaterThan(0);
