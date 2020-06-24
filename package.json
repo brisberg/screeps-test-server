@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest --runInBand",
+    "test": "yarn build && jest --runInBand",
     "lint": "eslint \"src/**/*.ts\""
   },
   "peerDependencies": {
