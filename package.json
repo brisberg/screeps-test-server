@@ -1,6 +1,6 @@
 {
   "name": "@brisberg/screeps-test-server",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Screeps Private Server in a custom test environment. Suitable for unit/integration testing Screeps Server Mod configurations and user scripts.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -49,8 +49,8 @@
     "eslint": "^7.3.1",
     "eslint-config-google": "^0.14.0",
     "jest": "^26.1.0",
+    "screeps": "^4.1.6",
     "ts-jest": "^26.1.1",
-    "typescript": "3.9.4",
-    "screeps": "^4.1.6"
+    "typescript": "3.9.4"
   }
 }
