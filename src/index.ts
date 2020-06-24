@@ -1,3 +1,3 @@
-import ScreepsTestServer from './test-server';
+import ScreepsTestServer, {ScreepsTestServerOptions} from './test-server';
 
-export {ScreepsTestServer};
+export {ScreepsTestServer, ScreepsTestServerOptions};
