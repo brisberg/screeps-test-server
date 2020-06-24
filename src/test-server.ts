@@ -1,11 +1,20 @@
-const fs = require('fs');
-const path = require('path');
-const cp = require('child_process');
+import cp from 'child_process';
+import fs from 'fs';
+import path from 'path';
+
 const common = require('@brisberg/common');
 
 // Arbitrary port number. Must match port hardcoded in .screepsrc
-process.env.STORAGE_PORT = 24837;
+process.env.STORAGE_PORT = '24837';
 // process.env.STORAGE_HOST = 'localhost';
+
+export interface ScreepsTestServerOptions {
+  silent?: boolean;
+  steamApiKey?: string;
+  serverDir?: string;
+  mods?: string[];
+  bots?: string[];
+}
 
 /**
  * Screeps Test Server
@@ -13,11 +22,16 @@ process.env.STORAGE_PORT = 24837;
  * Handles parsing server options, managing screeps server processes, launching
  * separate common/storage process.
  */
-class ScreepsTestServer {
-  constructor(opts = {}) {
-    this._connected = false;
-    this._serverProcess = undefined;
+export default class ScreepsTestServer {
+  private _connected = false;
+  private serverProcess?: cp.ChildProcess = undefined;  // Server process handle
+  private silent = true;
+  private steamApiKey = '';
+  private envDir = 'server';  // Directory name of test environment
+  private mods: string[] = [];
+  private bots: string[] = [];
 
+  constructor(opts: ScreepsTestServerOptions = {}) {
     // Options
     this.silent = opts.silent || true;
     this.steamApiKey = opts.steamApiKey || '';
@@ -26,19 +40,19 @@ class ScreepsTestServer {
     this.bots = opts.bots || [];
   }
 
-  get db() {
+  get db(): any {
     return common.storage.db;
   }
 
-  get env() {
+  get env(): any {
     return common.storage.env;
   }
 
-  get pubsub() {
+  get pubsub(): any {
     return common.storage.pubsub;
   }
 
-  get connected() {
+  get connected(): boolean {
     return this._connected;
   }
 
@@ -48,9 +62,9 @@ class ScreepsTestServer {
    *
    * Stores the database, and environment, and pubsub handles.
    */
-  async start() {
+  async start(): Promise<void> {
     // Copy server files into test environment
-    const ASSETS_PATH = path.join(__dirname, 'assets');
+    const ASSETS_PATH = path.join(__dirname, '..', 'assets');
     const TEST_ENV_PATH = path.join(process.cwd(), this.envDir);
     const SERVER_FILES = ['.screepsrc', 'db.json', 'steam_appid.txt'];
     fs.mkdirSync(TEST_ENV_PATH, {recursive: true});
@@ -66,7 +80,7 @@ class ScreepsTestServer {
     fs.writeFileSync(path.join(TEST_ENV_PATH, 'mods.json'), modsJson);
 
     // Launch Server
-    this._serverProcess = forkServerProcess(
+    this.serverProcess = forkServerProcess(
         this.envDir,
         this.silent,
         this.steamApiKey,
@@ -82,23 +96,23 @@ class ScreepsTestServer {
    * Tear down and cleanup the screeps process.
    */
   async stop() {
-    if (!this.connected || !this._serverProcess) {
+    if (!this.connected || !this.serverProcess) {
       return;
     }
 
-    this._serverProcess.kill();
+    this.serverProcess.kill();
     // common.storage._connected = false;
-    this._serverProcess = undefined;
+    this.serverProcess = undefined;
     this._connected = false;
 
     // Wait for process to die
     return new Promise((resolve) => setTimeout(resolve, 50));
   };
-}
-module.exports = ScreepsTestServer;
+};
 
 // Forks a full Screeps Server process and returns the handle
-function forkServerProcess(serverDir, silent = true, steamApiKey = '') {
+function forkServerProcess(
+    serverDir: string, silent = true, steamApiKey = 'none'): cp.ChildProcess {
   const execPath = path.resolve(
       path.dirname(require.resolve('@screeps/launcher')),
       '../bin/screeps.js',

@@ -1,1 +1,3 @@
-export const name = 'typescript-pkg';
+import ScreepsTestServer from './test-server';
+
+export {ScreepsTestServer};

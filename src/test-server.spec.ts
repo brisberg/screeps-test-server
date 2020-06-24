@@ -1,10 +1,10 @@
-const del = require('del');
-const fs = require('fs');
-const path = require('path');
-const ScreepsTestServer = require('../test-server');
+import del from 'del';
+import fs from 'fs';
+import path from 'path';
+import ScreepsTestServer from './test-server';
 
-describe('Screeps Test Server', () => {
-  let server;
+describe.skip('Screeps Test Server', () => {
+  let server: ScreepsTestServer;
 
   afterEach(async () => {
     await server.stop();
@@ -60,7 +60,7 @@ describe('Screeps Test Server', () => {
   });
 
   describe.skip(`'silent' server option`, () => {
-    let spy;
+    let spy: jest.SpyInstance;
 
     beforeEach(() => {
       spy = jest.spyOn(process.stdout, 'write');
