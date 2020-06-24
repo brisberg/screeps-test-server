@@ -2,10 +2,11 @@
   "name": "@brisberg/screeps-test-server",
   "version": "0.1.2",
   "description": "Screeps Private Server in a custom test environment. Suitable for unit/integration testing Screeps Server Mod configurations and user scripts.",
-  "main": "index.js",
+  "main": "src/index.js",
   "keywords": [
     "screeps",
-    "testing"
+    "testing",
+    "typescript"
   ],
   "author": "brisberg <brandon.risberg@gmail.com>",
   "license": "MIT",
@@ -18,15 +19,17 @@
   },
   "homepage": "https://github.com/brisberg/screeps-test-server#readme",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "files": [
     "assets/**",
-    "index.js",
-    "test-server.js"
+    "src/index.js",
+    "src/test-server.js"
   ],
   "scripts": {
-    "test": "jest --runInBand"
+    "build": "tsc",
+    "test": "jest --runInBand",
+    "lint": "eslint \"src/**/*.ts\""
   },
   "peerDependencies": {
     "screeps": "4.x"
@@ -35,8 +38,16 @@
     "@brisberg/common": "github:brisberg/common#no-storage-restart"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "clang-format": "^1.4.0",
     "del": "^5.1.0",
-    "jest": "^26.0.1",
+    "eslint": "^7.3.1",
+    "eslint-config-google": "^0.14.0",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.1",
+    "typescript": "3.9.4",
     "screeps": "^4.1.6"
   }
 }
