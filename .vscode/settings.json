@@ -1,5 +1,5 @@
 {
-  // Default Settings (brisberg/typescript-pkg-cruft)
+  // Default Settings (brisberg/cruft-typescript-pkg)
   "editor.renderWhitespace": "boundary",
   "files.encoding": "utf8",
   "files.trimTrailingWhitespace": true,

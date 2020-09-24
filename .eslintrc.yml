@@ -14,15 +14,13 @@ parserOptions:
   sourceType: module
 plugins:
   - '@typescript-eslint'
-ignorePatterns:
-  - lib/
 rules:
   require-jsdoc: 0
   valid-jsdoc: 0
   no-multi-spaces:
-    - error
-    - ignoreEOLComments: true
+  - error
+  - ignoreEOLComments: true
   block-spacing:
-    - error
-    - always
+  - error
+  - always
   indent: off # Let clang-format take care of indentation

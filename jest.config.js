@@ -1,5 +1,5 @@
 module.exports = {
-  // -- Default JestSettings (brisberg/typescript-pkg)
+  // -- Default JestSettings (brisberg/cruft-typescript-pkg)
 
   // An array of glob patterns indicating a set of files for which coverage
   // information should be collected
@@ -16,10 +16,13 @@ module.exports = {
   preset: 'ts-jest',
 
   // The test environment that will be used for testing
-  testEnvironment: 'node',
+  // testEnvironment: '',
 
   // The glob patterns Jest uses to detect test files
   testMatch: ['**/*.spec.ts', '!**/node_modules/**', '!**/lib/**'],
 
   // -- Add package specific configurations below here
+
+  // The test environment that will be used for testing
+  testEnvironment: 'node',
 };

@@ -14,10 +14,10 @@ Returns a handle to the custom common/storage process for use with Pubsub, Env, 
 `yarn build` - Builds the package, emitting .js and .d.ts files\
 `yarn lint` - Runs lint over the project source\
 `yarn test` - Runs all tests under the src/ directory\
-`yarn publish` - Bumps package version and publishes the package to Github Packages
+`yarn publish` - Bumps package version and publishes the package to NPM Registry
 
 ## Toolchain
 
-Uses [@brisberg/typescript-pkg](https://github.com/brisberg/typescript-pkg) as a template for Toolchain configuration.
+Uses [@brisberg/cruft-typescript-pkg](https://github.com/brisberg/cruft-typescript-pkg) as a template for Toolchain configuration.
 
 See that repo for a list of tools, documentation, and upgrade steps.
