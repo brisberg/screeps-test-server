@@ -11,6 +11,7 @@
   ],
   "author": "brisberg <brandon.risberg@gmail.com>",
   "license": "MIT",
+  "private": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brisberg/screeps-test-server.git"
