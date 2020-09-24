@@ -1,0 +1,16 @@
+{
+    "template": "https://github.com/brisberg/typescript-pkg-cruft",
+    "commit": "c29424421067ddb7db9737473c9462d82fef885c",
+    "context": {
+        "cookiecutter": {
+            "full_name": "Brandon Risberg",
+            "email": "brandon.risberg@gmail.com",
+            "github_username": "brisberg",
+            "project_name": "screeps-test-server",
+            "description": "Screeps Private Server in a custom test environment. Suitable for unit/integration testing Screeps Server Mod configurations and user scripts.",
+            "version": "0.2.1",
+            "_template": "https://github.com/brisberg/typescript-pkg-cruft"
+        }
+    },
+    "directory": null
+}
