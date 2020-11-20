@@ -26,6 +26,7 @@ module.exports = {
   // The test environment that will be used for testing
   testEnvironment: 'node',
 
-  // Max duration of a test (in mills)
-  testTimeout: 15000,
+  // Extending timeout duration of tests as integration tests can
+  // take a long time on CI
+  testTimeout: 15 * 1000,
 };
