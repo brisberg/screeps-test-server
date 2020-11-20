@@ -1,0 +1,39 @@
+name: Yarn CI
+
+on: [push, pull_request]
+
+jobs:
+  test_lint:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # Specify all desired node versions
+        node-version: [10.x]
+
+    steps:
+      # Setup Runner with node
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: actions/cache@v2 (node_modules)
+      uses: actions/cache@v2
+      # Use this ID to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      id: yarn-cache
+      with:
+        path: 'node_modules/'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-modules-
+
+      # Run all CI actions
+    - name: yarn install
+      run: yarn install --frozen-lockfile
+    - name: yarn run test
+      run: yarn run test
+    - name: yarn run lint
+      run: yarn run lint

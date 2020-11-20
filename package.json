@@ -37,19 +37,19 @@
   },
   "dependencies": {
     "@brisberg/common": "github:brisberg/common#no-storage-restart",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.3",
-    "@typescript-eslint/eslint-plugin": "^3.5.0",
-    "@typescript-eslint/parser": "^3.5.0",
+    "@types/jest": "^26.0.15",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
     "clang-format": "^1.4.0",
-    "del": "^5.1.0",
-    "eslint": "^7.3.1",
+    "del": "^6.0.0",
+    "eslint": "^7.13.0",
     "eslint-config-google": "^0.14.0",
-    "jest": "^26.1.0",
-    "screeps": "^4.1.6",
-    "ts-jest": "^26.1.1",
-    "typescript": "^3.9.6"
+    "jest": "^26.6.3",
+    "screeps": "^4.2.3",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.2"
   }
 }

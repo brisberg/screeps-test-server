@@ -64,7 +64,7 @@ export default class ScreepsTestServer {
    * Launches a new Screeps Server, overwrites the database file, and connects
    * to the storage process.
    *
-   * Stores the database, and environment, and pubsub handles.
+   * Stores the database, environment, and pubsub handles.
    */
   async start(): Promise<void> {
     // Copy server files into test environment
