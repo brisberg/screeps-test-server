@@ -37,3 +37,10 @@ jobs:
       run: yarn run test
     - name: yarn run lint
       run: yarn run lint
+
+    - name: Upload test logs
+      uses: actions/upload-artifact@v2
+      if: ${{ always() }}
+      with:
+        name: test-server_logs
+        path: server/logs
