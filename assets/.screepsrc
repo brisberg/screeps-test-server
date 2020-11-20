@@ -47,7 +47,7 @@ db = db.json
 log_console = false
 
 ;How many log files to keep when rotating.
-log_rotate_keep = 1
+log_rotate_keep = 5
 
 ;If set, disable built-in storage, useful when you use some other implementation.
 storage_disabled = false
