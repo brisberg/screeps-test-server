@@ -67,10 +67,11 @@ export default class ScreepsTestServer {
    * Stores the database, environment, and pubsub handles.
    */
   async start(): Promise<void> {
-    // Copy server files into test environment
     const ASSETS_PATH = path.join(__dirname, '..', 'assets');
     const TEST_ENV_PATH = path.join(process.cwd(), this.envDir);
     const SERVER_FILES = ['.screepsrc', 'db.json', 'steam_appid.txt'];
+
+    // Copy server files into test environment
     fs.mkdirSync(TEST_ENV_PATH, {recursive: true});
     SERVER_FILES.forEach((fileName) => {
       fs.copyFileSync(
@@ -78,6 +79,7 @@ export default class ScreepsTestServer {
           path.join(TEST_ENV_PATH, fileName),
       );
     });
+
     // Write out mods.json file
     const modsData = {mods: this.mods, bots: this.bots};
     const modsJson = JSON.stringify(modsData, undefined, 2);
