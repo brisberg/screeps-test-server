@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const common = require('@brisberg/common');
+const common = require('@screeps/common');
 
 // Arbitrary port number. Must match port hardcoded in .screepsrc
 process.env.STORAGE_PORT = '24837';
@@ -89,10 +89,10 @@ export default class ScreepsTestServer {
         this.silent,
         this.steamApiKey,
     );
-    // Wait for storage to initialize
+    // Wait for storage process to initialize
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    await common.storage._connect();
-    // await common.storage.resetAllData();
+    // Initialize local storage connection
+    await common.storage._connect(false, true);
     this._connected = true;
   }
 

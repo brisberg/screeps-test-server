@@ -36,7 +36,6 @@
     "screeps": "4.x"
   },
   "dependencies": {
-    "@brisberg/common": "github:brisberg/common#no-storage-restart",
     "tslib": "^2.0.3"
   },
   "devDependencies": {
